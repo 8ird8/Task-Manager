@@ -1,0 +1,46 @@
+{% extends "base.html" %} 
+{%block title%}Create post{%endblock%} 
+{%block content%}
+    <div class="pip">
+      <h1 align="center">Make a Post</h1>
+      <div align="center">
+        <form method="POST" action="/create-post">
+          {{ form.hidden_tag() }} {{ form.title( class="form-control" )}} <br>
+          {{ form.text( class="form-control" )}} 
+          
+          {{ form.submit (class="btn btn-primary btn-lg")  }}
+        </form>
+        <label for="image" class="upload-button" title="Upload Image">
+          <i class="fas fa-upload"></i>
+          <input type="file" id="image-upload" style="display: none;" >
+        </label>
+         
+      </div>
+      
+      <br />
+      <div align="center">
+        <a href="{{url_for('dashboard')}}">
+          <button type="button" class="btn btn-lg btn-secondary">
+            Back
+          </button></a
+        >
+      </div>
+    </div>
+    <script>
+      function displayImage(event) {
+    var input = event.target;
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        var image = document.createElement('img');
+        image.src = e.target.result;
+        image.classList.add('img-fluid');
+        document.getElementById('image-container').innerHTML = '';
+        document.getElementById('image-container').appendChild(image);
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+    </script>
+    {%endblock%}
+  
